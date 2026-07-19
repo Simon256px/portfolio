@@ -10,12 +10,25 @@
 
 import { serveDir } from "jsr:@std/http@1/file-server";
 
-const kv = await Deno.openKv();
+// KV_PATH : chemin du fichier SQLite des likes sur le VPS (sur Deno Deploy, laisser vide → KV managé).
+const kv = await Deno.openKv(Deno.env.get("KV_PATH") || undefined);
 const SALT = Deno.env.get("LIKE_SALT") ?? "simoncourtois-likes-v1";
 const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,99}$/;
+const HOSTNAME = Deno.env.get("HOST") || undefined; // 127.0.0.1 derrière nginx, sinon toutes interfaces
+const PORT = Number(Deno.env.get("PORT") ?? 8000);
+
+// Derrière nginx, l'IP réelle du client arrive dans X-Real-IP / X-Forwarded-For ;
+// remoteAddr vaudrait 127.0.0.1 pour tout le monde et ne distinguerait pas les visiteurs.
+function clientIp(req: Request, info: Deno.ServeHandlerInfo): string {
+  const real = req.headers.get("x-real-ip");
+  if (real) return real.trim();
+  const fwd = req.headers.get("x-forwarded-for");
+  if (fwd) return fwd.split(",")[0].trim();
+  return (info.remoteAddr as Deno.NetAddr).hostname ?? "";
+}
 
 async function fingerprint(req: Request, info: Deno.ServeHandlerInfo): Promise<string> {
-  const ip = (info.remoteAddr as Deno.NetAddr).hostname ?? "";
+  const ip = clientIp(req, info);
   const ua = req.headers.get("user-agent") ?? "";
   const data = new TextEncoder().encode(`${SALT}|${ip}|${ua}`);
   const digest = await crypto.subtle.digest("SHA-256", data);
@@ -63,7 +76,7 @@ async function toggleLike(slug: string, fp: string, liked: boolean): Promise<num
   throw new Error("conflit KV persistant");
 }
 
-Deno.serve(async (req: Request, info: Deno.ServeHandlerInfo) => {
+Deno.serve({ hostname: HOSTNAME, port: PORT }, async (req: Request, info: Deno.ServeHandlerInfo) => {
   const url = new URL(req.url);
 
   if (url.pathname === "/api/likes" && req.method === "GET") {

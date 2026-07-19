@@ -1,30 +1,27 @@
-name: Déploiement Deno Deploy
+name: Déploiement VPS
 
 on:
   push:
     branches: [main]
   workflow_dispatch: # permet de relancer le déploiement à la main depuis l'onglet Actions
 
+concurrency:
+  group: deploy-vps
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write # authentification OIDC auprès de Deno Deploy, aucun secret à gérer
-      contents: read
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Installer Deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-
-      - name: Build du site (Lume)
-        run: deno task build
-
-      - name: Déployer sur Deno Deploy
-        uses: denoland/deployctl@v1
-        with:
-          project: portfolio # ← doit correspondre au nom du projet sur dash.deno.com
-          entrypoint: serve.ts
+      - name: Déployer via SSH
+        env:
+          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -p "${VPS_PORT:-22}" "$VPS_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          ssh -i ~/.ssh/id_deploy -p "${VPS_PORT:-22}" "$VPS_USER@$VPS_HOST" 'bash /srv/portfolio/deploy/deploy.sh'

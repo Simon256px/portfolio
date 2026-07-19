@@ -1,0 +1,38 @@
+[Unit]
+Description=simoncourtois.com — serveur Deno (site statique + API likes)
+Documentation=https://github.com/Simon256px/portfolio
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=deploy
+Group=deploy
+WorkingDirectory=/srv/portfolio
+
+# Le serveur n'écoute que sur la boucle locale : nginx fait le reverse proxy + HTTPS.
+Environment=HOST=127.0.0.1
+Environment=PORT=8000
+# Base des likes, hors dépôt git donc jamais écrasée par un déploiement.
+Environment=KV_PATH=/srv/portfolio/data/likes.db
+# Cache Deno dans le dépôt (permet ProtectHome=true).
+Environment=DENO_DIR=/srv/portfolio/.deno
+# Décommenter et mettre une valeur secrète pour renforcer l'anonymisation des empreintes :
+# Environment=LIKE_SALT=change-moi
+
+ExecStart=/usr/local/bin/deno run --unstable-kv --allow-net --allow-env --allow-read=/srv/portfolio --allow-write=/srv/portfolio/data,/srv/portfolio/.deno serve.ts
+Restart=on-failure
+RestartSec=3
+
+# Durcissement (compatible avec l'écriture dans /srv/portfolio/{data,.deno})
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ProtectControlGroups=true
+ProtectKernelTunables=true
+RestrictSUIDSGID=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

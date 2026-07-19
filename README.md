@@ -35,17 +35,19 @@ deno task serve   # live-reload Lume pour travailler le design (sans API likes)
 deno task build   # build seul, dans _site/
 ```
 
-## Déploiement (Deno Deploy)
+## Déploiement (VPS Fedora/RHEL derrière nginx)
 
-Mise en place une seule fois :
+Le site tourne comme un service Deno sur `127.0.0.1:8000` (site statique + API likes en SQLite), nginx fait le reverse proxy + HTTPS. À chaque `git push` sur `main`, GitHub Actions se connecte en SSH au VPS et relance `deploy/deploy.sh` (git pull + rebuild + restart).
 
-1. Créer un dépôt GitHub et pousser ce dossier.
-2. Sur [dash.deno.com](https://dash.deno.com) : **New Project** → lier le dépôt GitHub → choisir le mode **GitHub Actions**.
-3. Nommer le projet Deno Deploy `portfolio` (comme le dépôt). Pour un autre nom, ajuster `project:` dans `.github/workflows/deploy.yml`.
-4. (Optionnel) Dans les réglages du projet, définir la variable d'environnement `LIKE_SALT` (n'importe quelle chaîne secrète — elle sale l'empreinte anonyme des visiteurs).
-5. Ajouter le domaine `simoncourtois.com` dans **Settings → Domains**.
+Mise en place détaillée, étape par étape (systemd, SELinux, firewalld, certbot, secrets GitHub) : **[deploy/README.md](deploy/README.md)**.
 
-Ensuite, chaque `git push` sur `main` reconstruit et déploie le site tout seul.
+Fichiers de déploiement :
+- `deploy/portfolio.service` — unité systemd du serveur Deno
+- `deploy/nginx-simoncourtois.com.conf` — vhost nginx (reverse proxy)
+- `deploy/deploy.sh` — script lancé sur le VPS à chaque déploiement
+- `.github/workflows/deploy.yml` — déclencheur SSH (secrets : `VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY`, `VPS_PORT`)
+
+> Le code reste compatible Deno Deploy (KV managé) : il suffit de laisser `KV_PATH` vide. Le serveur lit `HOST`, `PORT`, `KV_PATH` et `LIKE_SALT` depuis l'environnement.
 
 ## Likes
 
