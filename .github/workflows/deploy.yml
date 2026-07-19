@@ -25,5 +25,5 @@ jobs:
       - name: Déployer sur Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: simoncourtois # ← doit correspondre au nom du projet sur dash.deno.com
+          project: portfolio # ← doit correspondre au nom du projet sur dash.deno.com
           entrypoint: serve.ts

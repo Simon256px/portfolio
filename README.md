@@ -41,7 +41,7 @@ Mise en place une seule fois :
 
 1. Créer un dépôt GitHub et pousser ce dossier.
 2. Sur [dash.deno.com](https://dash.deno.com) : **New Project** → lier le dépôt GitHub → choisir le mode **GitHub Actions**.
-3. Si le projet ne s'appelle pas `simoncourtois`, ajuster `project:` dans `.github/workflows/deploy.yml`.
+3. Nommer le projet Deno Deploy `portfolio` (comme le dépôt). Pour un autre nom, ajuster `project:` dans `.github/workflows/deploy.yml`.
 4. (Optionnel) Dans les réglages du projet, définir la variable d'environnement `LIKE_SALT` (n'importe quelle chaîne secrète — elle sale l'empreinte anonyme des visiteurs).
 5. Ajouter le domaine `simoncourtois.com` dans **Settings → Domains**.
 
