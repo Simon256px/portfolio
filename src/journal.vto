@@ -1,0 +1,54 @@
+---
+layout: layouts/base.vto
+title: Journal — Simon Courtois
+description: Notes sur le code, les jeux vidéo, la philo — et tout ce qu'il y a entre les trois.
+nav: journal
+url: /journal/
+bgVariant: journal
+bgBlur: 20
+bgSpeed: 0.8
+bgOpacity: 0.55
+extraScript: /js/journal.js
+---
+{{ set posts = search.pages("type=post", "date=desc") }}
+{{ set cats = [...new Set(posts.map((p) => p.category))] }}
+
+<section class="page-head">
+  <div class="wrap">
+    <div class="kicker fade d-1">( 02 ) — JOURNAL</div>
+    <div class="head fade d-25">
+      <h1>Journal</h1>
+      <div class="head-info">( {{ posts.length |> pad2 }} ) ARTICLES<br>NOTES SUR LE CODE, LES JEUX,<br>LA PHILO &amp; TOUT LE RESTE</div>
+    </div>
+    <div class="filters fade d-4">
+      <button type="button" class="chip active" data-cat="TOUS">TOUS ( {{ posts.length |> pad2 }} )</button>
+      {{ for c of cats }}
+      <button type="button" class="chip" data-cat="{{ c }}">{{ c }} ( {{ posts.filter((p) => p.category === c).length |> pad2 }} )</button>
+      {{ /for }}
+      <input type="search" id="search" class="search-input" placeholder="RECHERCHER…" aria-label="Rechercher un article" autocomplete="off">
+    </div>
+  </div>
+</section>
+
+<section class="journal-list">
+  <div class="wrap">
+    {{ for e of posts.map((p, i) => ({ p, n: String(i + 1).padStart(2, "0") })) }}
+    <a href="{{ e.p.url }}" class="article-row" data-cat="{{ e.p.category }}" data-search="{{ e.p.title }} {{ e.p.excerpt ?? "" }} {{ e.p.category }}">
+      <span class="left">
+        <span class="idx">{{ e.n }}</span>
+        <span>{{ e.p.date |> dmy }}</span>
+      </span>
+      <span>
+        <span class="title">{{ e.p.title }}</span>
+        <span class="excerpt">{{ e.p.excerpt }}</span>
+      </span>
+      <span class="side">
+        <span class="cat"><span class="mono-dot" style="background:{{ e.p.category |> dotColor }}"></span>{{ e.p.category }}</span>
+        <span>{{ e.p.readingTime }} MIN · <span class="likes" data-slug="{{ e.p.basename }}">—</span> ♥</span>
+        <span class="arrow">↗</span>
+      </span>
+    </a>
+    {{ /for }}
+    <div class="no-result" id="no-result">AUCUN ARTICLE NE CORRESPOND — ESSAYE UN AUTRE MOT-CLÉ.</div>
+  </div>
+</section>

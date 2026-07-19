@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ if type === "post" }}
+<title>{{ title }} — Simon Courtois</title>
+{{ else }}
+<title>{{ title }}</title>
+{{ /if }}
+<meta name="description" content="{{ description ?? excerpt ?? "Développeur & designer — j'imagine, je dessine et je code des expériences web, de l'idée au déploiement." }}">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Crect%20width%3D'16'%20height%3D'16'%20fill%3D'%230A0A0C'%2F%3E%3Ccircle%20cx%3D'8'%20cy%3D'8'%20r%3D'4'%20fill%3D'%23D84122'%2F%3E%3C%2Fsvg%3E">
+<link rel="preload" href="/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="bg bg--{{ bgVariant ?? "journal" }}" aria-hidden="true">
+  <canvas id="bg-canvas" data-blur="{{ bgBlur ?? 18 }}" data-speed="{{ bgSpeed ?? 1 }}" data-opacity="{{ bgOpacity ?? 0.6 }}"></canvas>
+  <div class="veil-a"></div>
+  <div class="veil-b"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+<header class="site-header">
+  <a href="/" class="brand">SC — ©2026</a>
+  <nav>
+    <a href="/"{{ if nav === "accueil" }} class="active"{{ /if }}>ACCUEIL</a>
+    <a href="/journal/"{{ if nav === "journal" }} class="active"{{ /if }}>JOURNAL</a>
+    <a href="/contact/"{{ if nav === "contact" }} class="active"{{ /if }}>CONTACT</a>
+  </nav>
+  <div class="right">
+    <span class="clock">PARIS — <span class="js-clock">··:··:··</span></span>
+  </div>
+</header>
+{{ content }}
+<footer class="site-footer">
+  <span>©2026 SIMON COURTOIS</span>
+  <span class="socials">
+    <a href="{{ links.github.url }}" target="_blank" rel="noopener">GITHUB</a>
+    <a href="{{ links.youtube.url }}" target="_blank" rel="noopener">YOUTUBE</a>
+  </span>
+  <span class="top-link"><a href="#" id="to-top">HAUT ↑</a></span>
+</footer>
+<script type="module" src="/js/site.js"></script>
+{{ if extraScript }}
+<script type="module" src="{{ extraScript }}"></script>
+{{ /if }}
+</body>
+</html>

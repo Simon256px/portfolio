@@ -1,0 +1,41 @@
+---
+layout: layouts/base.vto
+bgVariant: post
+bgBlur: 22
+bgSpeed: 0.7
+bgOpacity: 0.4
+nav: journal
+extraScript: /js/post.js
+---
+<article>
+  <section class="post-hero">
+    <div class="wrap">
+      <div class="top-row fade d-1">
+        <span>( 02 ) — JOURNAL</span>
+        <a href="/journal/">← TOUS LES ARTICLES</a>
+      </div>
+      <h1 class="fade d-22">{{ title }}</h1>
+      <div class="post-meta fade d-34">
+        <span class="cat"><span class="mono-dot" style="background:{{ category |> dotColor }}"></span>{{ category }}</span>
+        <span>{{ date |> dmy }}</span>
+        <span>{{ readingTime }} MIN DE LECTURE</span>
+        <span><span class="likes" data-slug="{{ basename }}">—</span> ♥</span>
+      </div>
+      {{ if excerpt }}
+      <p class="post-excerpt fade d-46">{{ excerpt }}</p>
+      {{ /if }}
+    </div>
+  </section>
+  <section class="post-body fade d-58">
+    <div class="prose">
+      {{ content }}
+    </div>
+    <div class="like-box">
+      <span class="like-label">CET ARTICLE T'A PLU ?</span>
+      <button type="button" class="like-btn" id="like-btn" data-slug="{{ basename }}">
+        <span class="heart">♥</span>
+        <span><span id="like-word">J'AIME</span> — ( <span class="likes" data-slug="{{ basename }}">0</span> )</span>
+      </button>
+    </div>
+  </section>
+</article>

@@ -1,0 +1,83 @@
+---
+layout: layouts/base.vto
+title: Simon Courtois — Développeur & designer
+description: Développeur & designer — polyvalent par choix. J'imagine, je dessine et je code des expériences web, de l'idée au déploiement.
+nav: accueil
+url: /
+bgVariant: home
+bgBlur: 16
+bgSpeed: 1
+bgOpacity: 0.92
+extraScript: /js/home.js
+---
+{{ set posts = search.pages("type=post", "date=desc") }}
+{{ set recents = posts.slice(0, 5) }}
+
+<section class="hero">
+  <div class="hero-top fade d-15">
+    <span>( 01 ) — ACCUEIL</span>
+    <span>PORTFOLIO · ÉDITION 2026</span>
+  </div>
+  <div class="hero-middle">
+    <h1 class="sr-only">Simon Courtois — développeur et designer</h1>
+    <div class="title-wrap" aria-hidden="true">
+      <canvas id="title-canvas"></canvas>
+    </div>
+    <div class="hint fade d-100">SOUFFLEZ SUR LES PARTICULES · CLIQUEZ POUR DISPERSER</div>
+  </div>
+  <div class="hero-bottom">
+    <div class="avail fade d-45">
+      <div class="avail-label"><span class="pulse-dot"></span>DISPONIBLE — FREELANCE</div>
+      <p>Développeur &amp; designer — polyvalent par choix. J'imagine, je dessine et je code des expériences web, de l'idée au déploiement.</p>
+    </div>
+    <div class="scroll-cue fade d-7">
+      <span>( DÉFILER )</span>
+      <span class="fil"></span>
+    </div>
+    <div class="coords fade d-55">48.8566° N — 2.3522° E<br>PARIS, FRANCE</div>
+  </div>
+</section>
+
+<section class="home-journal">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="kicker">( 02 ) — JOURNAL</div>
+        <h2>Journal</h2>
+      </div>
+      <a href="/journal/" class="btn-outline">TOUT VOIR — ( {{ posts.length |> pad2 }} ) ↗</a>
+    </div>
+    <div class="cols">
+      <div>
+        <div class="col-head"><span>RÉCENTS</span><span>( {{ recents.length |> pad2 }} )</span></div>
+        {{ for e of recents.map((p, i) => ({ p, n: String(i + 1).padStart(2, "0") })) }}
+        <a href="{{ e.p.url }}" class="mini-row">
+          <span class="num">{{ e.n }}</span>
+          <span>
+            <span class="title">{{ e.p.title }}</span>
+            <span class="meta">{{ e.p.category }} · {{ e.p.readingTime }} MIN</span>
+          </span>
+          <span class="side">{{ e.p.date |> dmy }} ↗</span>
+        </a>
+        {{ /for }}
+      </div>
+      <div>
+        <div class="col-head"><span>LES PLUS AIMÉS</span><span>( {{ recents.length |> pad2 }} )</span></div>
+        <div id="top-liked">
+          {{ for e of recents.map((p, i) => ({ p, n: String(i + 1).padStart(2, "0") })) }}
+          <a href="{{ e.p.url }}" class="mini-row">
+            <span class="num">{{ e.n }}</span>
+            <span>
+              <span class="title">{{ e.p.title }}</span>
+              <span class="meta">{{ e.p.category }} · {{ e.p.readingTime }} MIN</span>
+            </span>
+            <span class="side"><span class="likes" data-slug="{{ e.p.basename }}">—</span> ♥</span>
+          </a>
+          {{ /for }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="application/json" id="posts-index">{{ JSON.stringify(posts.map((p) => ({ slug: p.basename, url: p.url, title: p.title, category: p.category, minutes: p.readingTime, date: p.date instanceof Date ? p.date.toISOString() : String(p.date) }))) }}</script>
