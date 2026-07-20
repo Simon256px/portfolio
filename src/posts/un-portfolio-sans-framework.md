@@ -1,6 +1,6 @@
 ---
 title: "Un portfolio sans framework, promis"
-date: 2026-06-02
+date: 2026-05-25
 category: FRONT-END
 excerpt: "HTML, CSS, un peu de JS vanilla — et l'étrange liberté de ne rien installer."
 ---
