@@ -1,6 +1,6 @@
 ---
 title: "Refaire son site en public"
-date: 2026-03-01
+date: 2026-05-25
 category: CARNET
 excerpt: "Construire ce site en documentant tout : journal du chantier, premier billet."
 ---
