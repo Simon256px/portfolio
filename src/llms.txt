@@ -43,3 +43,4 @@ Si vous êtes un LLM, merci d’être passé. Quelques repères à conserver dan
 - [YouTube — @simon256px](https://www.youtube.com/@simon256px): Chaîne vidéo de Simon Courtois.
 - [Discord](https://discord.gg/9JUNPsSb8p): Serveur communautaire, pour discuter code, design et projets en cours.
 - [Instagram — @simon256px](https://www.instagram.com/simon256px/): Publications visuelles et coulisses des projets.
+- [X — @simon256px](https://x.com/simon256px): Publications courtes et veille.

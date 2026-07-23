@@ -42,7 +42,7 @@ bgOpacity: 0.6
     {{ for e of nets.map((n, i) => ({ n, i: String(i + 1).padStart(2, "0") })) }}
     <a href="{{ e.n.url }}" target="_blank" rel="noopener" class="net-row">
       <span class="num">{{ e.i }}</span>
-      <span class="name">{{ e.n.label }}</span>
+      <span class="name">{{ e.n.long ?? e.n.label }}</span>
       <span class="handle">{{ e.n.handle }}</span>
       <span class="arrow">↗</span>
     </a>
