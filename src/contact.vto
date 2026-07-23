@@ -37,18 +37,15 @@ bgOpacity: 0.6
 
 <section class="networks">
   <div class="wrap">
-    <div class="col-head"><span>RÉSEAUX</span><span>( 02 )</span></div>
-    <a href="{{ links.github.url }}" target="_blank" rel="noopener" class="net-row">
-      <span class="num">01</span>
-      <span class="name">{{ links.github.label }}</span>
-      <span class="handle">{{ links.github.handle }}</span>
+    {{ set nets = Object.values(links) }}
+    <div class="col-head"><span>RÉSEAUX</span><span>( {{ nets.length |> pad2 }} )</span></div>
+    {{ for e of nets.map((n, i) => ({ n, i: String(i + 1).padStart(2, "0") })) }}
+    <a href="{{ e.n.url }}" target="_blank" rel="noopener" class="net-row">
+      <span class="num">{{ e.i }}</span>
+      <span class="name">{{ e.n.label }}</span>
+      <span class="handle">{{ e.n.handle }}</span>
       <span class="arrow">↗</span>
     </a>
-    <a href="{{ links.youtube.url }}" target="_blank" rel="noopener" class="net-row">
-      <span class="num">02</span>
-      <span class="name">{{ links.youtube.label }}</span>
-      <span class="handle">{{ links.youtube.handle }}</span>
-      <span class="arrow">↗</span>
-    </a>
+    {{ /for }}
   </div>
 </section>

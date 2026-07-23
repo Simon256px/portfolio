@@ -35,8 +35,9 @@
 <footer class="site-footer">
   <span>©2026 SIMON COURTOIS</span>
   <span class="socials">
-    <a href="{{ links.github.url }}" target="_blank" rel="noopener">GITHUB</a>
-    <a href="{{ links.youtube.url }}" target="_blank" rel="noopener">YOUTUBE</a>
+    {{ for n of Object.values(links) }}
+    <a href="{{ n.url }}" target="_blank" rel="noopener">{{ n.label.toUpperCase() }}</a>
+    {{ /for }}
   </span>
   <span class="top-link"><a href="#" id="to-top">HAUT ↑</a></span>
 </footer>
