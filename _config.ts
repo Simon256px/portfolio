@@ -8,6 +8,7 @@ const site = lume({
 site.add("styles.css");
 site.add("js");
 site.add("fonts");
+site.add("llms.txt");
 
 // Temps de lecture estimé (200 mots/min), calculé au build.
 site.preprocess([".md"], (pages) => {
