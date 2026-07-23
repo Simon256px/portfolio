@@ -1,0 +1,93 @@
+name: Notification Discord - nouvel article
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/posts/**/*.md"
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Préparer les messages Discord
+        id: posts
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if git rev-parse HEAD~1 >/dev/null 2>&1; then
+            new_files=$(git diff --name-only --diff-filter=A HEAD~1 HEAD -- "src/posts" | grep -E '\.md$' || true)
+          else
+            new_files=$(git ls-files "src/posts" | grep -E '\.md$' || true)
+          fi
+
+          if [ -z "$new_files" ]; then
+            {
+              echo "payloads<<EOF"
+              echo ""
+              echo "EOF"
+            } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          tmp_payloads=$(mktemp)
+
+          while IFS= read -r file; do
+            [ -n "$file" ] || continue
+
+            title=$(awk '
+              BEGIN { in_frontmatter = 0 }
+              /^---[[:space:]]*$/ {
+                if (in_frontmatter == 0) {
+                  in_frontmatter = 1
+                  next
+                }
+                exit
+              }
+              in_frontmatter == 1 && /^title:[[:space:]]*/ {
+                sub(/^title:[[:space:]]*/, "")
+                gsub(/^"|"$/, "")
+                gsub(/^'\''|'\''$/, "")
+                print
+                exit
+              }
+            ' "$file")
+
+            slug=$(basename "$file" .md)
+            url="https://simoncourtois.com/journal/${slug}/"
+            title=${title:-$slug}
+
+            jq -nc --arg content "Nouveau Journal ajouté : **${title}**\n${url}" '{content: $content}' >> "$tmp_payloads"
+          done <<< "$new_files"
+
+          {
+            echo "payloads<<EOF"
+            cat "$tmp_payloads"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Envoyer dans Discord
+        if: steps.posts.outputs.payloads != ''
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          PAYLOADS: ${{ steps.posts.outputs.payloads }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          while IFS= read -r payload; do
+            [ -n "$payload" ] || continue
+            curl --fail-with-body \
+              -H "Content-Type: application/json" \
+              -X POST \
+              -d "$payload" \
+              "$DISCORD_WEBHOOK_URL"
+          done <<< "$PAYLOADS"
