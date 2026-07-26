@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Récupérer le dépôt
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0 # historique complet : nécessaire pour comparer avec github.event.before
 
