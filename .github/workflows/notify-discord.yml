@@ -1,0 +1,89 @@
+name: Notification Discord - nouvel article
+
+# ⚠️ Ce fichier doit se trouver dans .github/workflows/notify-discord.yml
+# GitHub Actions ignore tout workflow placé ailleurs (y compris à la racine).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/posts/**.md" # "**/*.md" ne matcherait QUE les sous-dossiers
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # historique complet : nécessaire pour comparer avec github.event.before
+
+      - name: Publier les nouveaux articles sur Discord
+        shell: bash
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${DISCORD_WEBHOOK_URL:-}" ]; then
+            echo "::error::Le secret DISCORD_WEBHOOK_URL n'est pas défini (Settings → Secrets and variables → Actions)."
+            exit 1
+          fi
+
+          # Point de comparaison : tout l'intervalle du push, pas seulement le dernier commit
+          base=""
+          if [ -n "${BEFORE:-}" ] \
+            && [ "$BEFORE" != "0000000000000000000000000000000000000000" ] \
+            && git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then
+            base="$BEFORE"
+          elif git rev-parse --verify -q HEAD~1 >/dev/null; then
+            base="HEAD~1"
+          fi
+
+          if [ -n "$base" ]; then
+            new_files=$(git diff --name-only --diff-filter=A "$base" HEAD -- src/posts | grep -E '\.md$' || true)
+          else
+            new_files=$(git ls-files src/posts | grep -E '\.md$' || true)
+          fi
+
+          if [ -z "$new_files" ]; then
+            echo "Aucun nouvel article détecté."
+            exit 0
+          fi
+
+          while IFS= read -r file; do
+            [ -n "$file" ] || continue
+
+            title=$(awk '
+              BEGIN { in_frontmatter = 0 }
+              /^---[[:space:]]*$/ {
+                if (in_frontmatter == 0) { in_frontmatter = 1; next }
+                exit
+              }
+              in_frontmatter == 1 && /^title:[[:space:]]*/ {
+                sub(/^title:[[:space:]]*/, "")
+                gsub(/^"|"$/, "")
+                gsub(/^'\''|'\''$/, "")
+                print
+                exit
+              }
+            ' "$file")
+
+            slug=$(basename "$file" .md)
+            title=${title:-$slug}
+            url="https://simoncourtois.com/journal/${slug}/"
+
+            echo "→ Notification pour $title"
+
+            payload=$(jq -nc --arg t "$title" --arg u "$url" \
+              '{content: ("Nouveau Journal ajouté : **" + $t + "**\n" + $u)}')
+
+            curl --fail-with-body -sS \
+              -H "Content-Type: application/json" \
+              -X POST \
+              -d "$payload" \
+              "$DISCORD_WEBHOOK_URL"
+          done <<< "$new_files"
