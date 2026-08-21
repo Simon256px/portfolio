@@ -107,17 +107,3 @@ Ce que je retiens de ces chiffres n'est pas qu'on nous vole. C'est plus banal et
 Donc la question à poser devant chaque nouvelle annonce n'est ni « combien ça coûte » ni « qui en profite ». C'est celle-ci : **qui, nommément, vérifiera dans dix-huit mois ce que cet argent a produit, et que se passera-t-il si la réponse est « rien » ?** Si la réponse à la première partie est un service et pas une personne, et à la seconde « rien », alors l'argent est déjà parti, quelle que soit l'honnêteté de tous les intervenants.
 
 Et le plus dur à admettre, c'est qu'il n'y a rien de nouveau à réclamer. Les rapports existent, les montants sont publics, les propositions sont écrites, le texte sur les cabinets de conseil a été voté à l'unanimité par une chambre. Il manque une inscription à l'ordre du jour et un poste de contrôleur. C'est infiniment moins spectaculaire qu'une tronçonneuse brandie sur une scène, et c'est la seule chose qui changerait quelque chose.
-
----
-<!-- Contrôles Hermes
-- [x] Version 2 — remplace le brouillon `doge-chiffres-sans-preuves` : recentré à ~80 % sur la France et sur le MÉCANISME de délégation, le DOGE réduit à une seule section de contraste
-- [x] Sujet absent des 13 articles indexés
-- [x] 3 liens internes vérifiés contre data/index-articles.json (spinoza-a-l-epreuve-de-l-ia, les-adultes-n-existent-pas-et-l-ia-non-plus, jour-du-depassement-mix-electrique)
-- [x] Thèse conforme à la demande de l'auteur : ce n'est PAS un effet volontaire — l'article démontre explicitement qu'aucun voleur n'est nécessaire, et dit que chercher le voleur fait rater le sujet
-- [x] Faits sourcés et liés uniquement : Sénat 08.07.2025 (aides publiques, 211 Md€), Sénat 07.2025 (agences, 1 153 organismes), Sénat 07.2023 (fonds Marianne), Sénat 03.2022 (cabinets de conseil), senat.fr (état de la PPL), associations.gouv.fr (compte rendu financier), GAO 06.08.2026
-- [x] Présomption d'innocence explicite sur le fonds Marianne, avec l'argument que la thèse tient MÊME en cas de non-lieu ; aucune personne physique mise en cause
-- [x] Points faibles : admet ne pas pouvoir chiffrer ce qui « s'échappe », et refuse de confondre « non évalué » et « gaspillé »
-- [x] ~2 000 mots — au-dessus du plancher de 1 200 mots / 5 min
-- [x] Tutoiement, « je », section d'honnêteté à 4 objections, conclusion qui tranche sur une question opérante
-- [ ] À renommer en `argent-public-personne-ne-controle.md` pour tomber dans src/posts/
--->
