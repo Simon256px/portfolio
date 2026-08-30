@@ -752,6 +752,38 @@ html { scrollbar-width: thin; scrollbar-color: #26262B var(--bg); }
   margin: 48px 0;
 }
 
+/* Tableaux : enveloppés dans .table-scroll au build (voir _config.ts) pour
+   défiler horizontalement plutôt que d'écraser la mise en page. */
+.prose .table-scroll {
+  overflow-x: auto;
+  margin: 0 0 1.6em;
+  -webkit-overflow-scrolling: touch;
+}
+.prose table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 460px;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.prose th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(233,233,228,0.5);
+  border-bottom: 1px solid rgba(233,233,228,0.28);
+  padding: 0 18px 12px 0;
+}
+.prose td {
+  vertical-align: top;
+  padding: 13px 18px 13px 0;
+  border-bottom: 1px solid rgba(233,233,228,0.1);
+}
+.prose tr > :last-child { padding-right: 0; }
+.prose tbody tr:last-child td { border-bottom: none; }
+
 .like-box {
   max-width: 720px;
   margin: 40px auto 0;
@@ -819,3 +851,229 @@ html { scrollbar-width: thin; scrollbar-color: #26262B var(--bg); }
   color: rgba(233,233,228,0.65);
 }
 .error-page .btn-outline { margin-top: 40px; display: inline-block; width: fit-content; }
+
+/* ============================================================
+   Responsive
+   Deux paliers : tablette (≤1024px) resserre les espacements et
+   laisse les grilles à deux/trois colonnes se replier d'elles-mêmes
+   via auto-fit ; téléphone (≤680px) empile tout en colonne unique.
+   ============================================================ */
+
+/* ---- Tablette ---------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .site-header { padding: 20px 28px; }
+  .site-header nav { gap: 24px; }
+  .site-header .right { gap: 18px; }
+  .site-footer { padding: 22px 28px; }
+  .site-footer .socials { gap: 18px; }
+
+  .hero { min-height: calc(100vh - 58px); }
+  .hero .hero-top { padding: 20px 28px 0; }
+  .hero .title-wrap { height: min(50vh, 520px); min-height: 280px; }
+  .hero .hero-bottom { gap: 28px; padding: 0 28px 32px; }
+  .hero .avail { max-width: 320px; }
+
+  .home-journal { padding: 110px 28px 100px; }
+  /* Se replie en une colonne dès que deux pistes de 340px ne tiennent plus. */
+  .home-journal .cols {
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 56px 48px;
+    margin-top: 48px;
+  }
+
+  .page-head { padding: 72px 28px 0; }
+  .journal-list { padding: 30px 28px 100px; }
+  .article-row { grid-template-columns: 92px 1fr 176px; gap: 22px; }
+
+  .contact-hero { padding: 80px 28px 36px; }
+  .contact-hero .info-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    margin-top: 64px;
+    gap: 28px;
+  }
+  .networks { padding: 60px 28px 100px; }
+
+  .post-hero { padding: 72px 28px 0; }
+  .post-body { padding: 60px 28px 56px; }
+
+  .error-page { padding: 0 28px; }
+}
+
+/* ---- Téléphone --------------------------------------------- */
+
+@media (max-width: 680px) {
+  /* Header : l'horloge saute, la marque et la nav se partagent la ligne. */
+  .site-header {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    padding: 16px 20px;
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+  }
+  .site-header .right { display: none; }
+  .site-header nav { gap: 16px; }
+  .site-header nav a.active { gap: 6px; }
+  .site-header nav a.active::before { width: 4px; height: 4px; }
+
+  .site-footer {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 16px;
+    padding: 26px 20px;
+  }
+  .site-footer .socials { flex-wrap: wrap; justify-content: center; gap: 12px 18px; }
+  .site-footer .top-link { justify-content: center; }
+
+  /* Accueil : hero */
+  .hero { min-height: calc(100vh - 46px); min-height: calc(100svh - 46px); }
+  .hero .hero-top {
+    padding: 18px 20px 0;
+    gap: 14px;
+    font-size: 9px;
+    letter-spacing: 0.13em;
+  }
+  .hero .title-wrap { height: min(42vh, 360px); min-height: 200px; }
+  .hero .hint {
+    padding: 0 20px;
+    font-size: 8.5px;
+    letter-spacing: 0.16em;
+  }
+  .hero .hero-bottom {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 24px;
+    padding: 0 20px 30px;
+  }
+  .hero .avail { max-width: none; }
+  .hero .avail p { font-size: 14px; }
+  .hero .scroll-cue { display: none; }
+  .hero .coords { justify-self: start; text-align: left; }
+
+  /* Accueil : section journal */
+  .home-journal { padding: 80px 20px 80px; }
+  .home-journal .head { gap: 22px; }
+  .home-journal h2 { font-size: clamp(34px, 9vw, 44px); }
+  .home-journal .cols { grid-template-columns: 1fr; gap: 44px; margin-top: 34px; }
+
+  /* La colonne de droite (date / ♥) passe sous le titre. */
+  .mini-row {
+    grid-template-columns: 26px 1fr;
+    gap: 6px 14px;
+    padding: 20px 0;
+  }
+  .mini-row .title { font-size: 17px; }
+  .mini-row .side { grid-column: 2; }
+
+  /* Journal : en-tête et filtres */
+  .page-head { padding: 56px 20px 0; }
+  .page-head .head { gap: 18px; align-items: flex-start; }
+  .page-head h1 { margin-top: 16px; font-size: clamp(52px, 15vw, 70px); }
+  .page-head .head-info {
+    padding-bottom: 0;
+    text-align: left;
+    font-size: 9px;
+    line-height: 1.9;
+  }
+  .filters { gap: 8px; margin-top: 30px; }
+  .chip { padding: 10px 14px; font-size: 9.5px; letter-spacing: 0.12em; }
+  .search-input {
+    order: -1; /* la recherche passe au-dessus des filtres */
+    width: 100%;
+    margin-left: 0;
+    padding: 12px 14px;
+  }
+
+  /* Journal : liste d'articles */
+  .journal-list { padding: 24px 20px 90px; }
+  .article-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 22px 0;
+  }
+  .article-row .left { flex-direction: row; align-items: center; gap: 12px; }
+  .article-row .left .idx { font-size: 11px; }
+  .article-row .title { font-size: 20px; }
+  /* Extrait tronqué : sans ça, 21 lignes d'article donnent une page interminable. */
+  .article-row .excerpt {
+    max-width: none;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+  .article-row .side {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+  }
+  .article-row .side .arrow { margin-left: auto; }
+
+  /* Contact */
+  .contact-hero { padding: 60px 20px 30px; }
+  .contact-hero h1 { margin-top: 18px; font-size: clamp(42px, 13vw, 60px); }
+  .contact-hero .lead { margin-top: 22px; font-size: 14px; }
+  .contact-hero .email-block { margin-top: 48px; }
+  /* Calibré pour que l'adresse tienne sur une ligne jusqu'à 320px de large. */
+  .contact-hero .email-link {
+    font-size: clamp(16px, 5.2vw, 30px);
+    gap: 10px;
+    overflow-wrap: break-word;
+  }
+  .contact-hero .info-grid { grid-template-columns: 1fr; margin-top: 52px; gap: 24px; }
+
+  .networks { padding: 48px 20px 90px; }
+  /* Le pseudo passe sous le nom, la flèche reste sur la première ligne. */
+  .net-row {
+    grid-template-columns: 26px 1fr auto;
+    gap: 5px 14px;
+    padding: 18px 0;
+  }
+  .net-row .name { font-size: 18px; }
+  .net-row .handle { grid-column: 2; }
+  .net-row .arrow { grid-row: 1; grid-column: 3; }
+
+  /* Article */
+  .post-hero { padding: 56px 20px 0; }
+  .post-hero .top-row { gap: 14px; font-size: 9px; letter-spacing: 0.12em; }
+  .post-hero h1 { margin-top: 20px; font-size: clamp(30px, 8.4vw, 44px); }
+  .post-hero .post-meta {
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    margin-top: 22px;
+    font-size: 9px;
+  }
+  .post-hero .post-excerpt { margin-top: 20px; font-size: 15px; }
+
+  .post-body { padding: 44px 20px 48px; }
+  .prose { font-size: 16px; }
+  .prose h2 { margin: 42px 0 14px; font-size: 22px; }
+  .prose h3 { margin: 32px 0 12px; font-size: 17px; }
+  .prose pre { padding: 16px; }
+  .prose blockquote { padding-left: 16px; }
+  .like-box { padding: 32px 0 40px; }
+
+  /* 404 */
+  .error-page {
+    min-height: calc(100vh - 200px);
+    min-height: calc(100svh - 200px);
+    padding: 0 20px;
+  }
+  .error-page h1 { font-size: clamp(52px, 15vw, 70px); }
+  .error-page .lead { font-size: 14px; }
+}
+
+/* Sans survol (tactile), le décalage au :hover reste collé après un appui. */
+@media (hover: none) {
+  .article-row:hover,
+  .mini-row:hover,
+  .net-row:hover {
+    padding-left: 0;
+    color: var(--ink);
+    border-color: rgba(233,233,228,0.1);
+    background: none;
+  }
+}

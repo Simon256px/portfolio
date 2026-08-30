@@ -48,6 +48,19 @@ site.filter("dmy", (value: unknown) => {
 
 site.filter("pad2", (n: unknown) => String(n).padStart(2, "0"));
 
+// Les tableaux d'article sont enveloppés pour pouvoir défiler horizontalement
+// sur petit écran sans déformer la colonne de texte.
+site.process([".html"], (pages) => {
+  for (const page of pages) {
+    for (const table of page.document.querySelectorAll(".prose table")) {
+      const wrapper = page.document.createElement("div");
+      wrapper.className = "table-scroll";
+      table.replaceWith(wrapper);
+      wrapper.appendChild(table);
+    }
+  }
+});
+
 // Couleur de pastille par catégorie : celles de la maquette sont fixes,
 // toute nouvelle catégorie reçoit une couleur stable issue de la palette du fond animé.
 const FIXED_DOTS: Record<string, string> = {
