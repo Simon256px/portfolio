@@ -1,4 +1,5 @@
 import lume from "lume/mod.ts";
+import feed from "lume/plugins/feed.ts";
 
 const site = lume({
   src: "./src",
@@ -9,6 +10,26 @@ site.add("styles.css");
 site.add("js");
 site.add("fonts");
 site.add("llms.txt");
+
+// Flux RSS des articles du journal.
+site.use(feed({
+  output: "/feed.xml",
+  query: "type=post",
+  sort: "date=desc",
+  limit: 20,
+  info: {
+    title: "Journal — Simon Courtois",
+    description: "Notes sur le code, les jeux vidéo, la philo — et tout ce qu'il y a entre les trois.",
+    lang: "fr",
+    authorName: "Simon Courtois",
+    authorUrl: "https://simoncourtois.com",
+  },
+  items: {
+    description: "=excerpt",
+    categories: (data) => data.category ? [data.category] : undefined,
+    authorName: "Simon Courtois",
+  },
+}));
 
 // Temps de lecture estimé (200 mots/min), calculé au build.
 site.preprocess([".md"], (pages) => {

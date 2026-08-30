@@ -26,6 +26,7 @@ extraScript: /js/journal.js
       <button type="button" class="chip" data-cat="{{ c }}">{{ c }} ( {{ posts.filter((p) => p.category === c).length |> pad2 }} )</button>
       {{ /for }}
       <input type="search" id="search" class="search-input" placeholder="RECHERCHER…" aria-label="Rechercher un article" autocomplete="off">
+      <a href="/feed.xml" class="chip" title="Flux RSS du journal">RSS</a>
     </div>
   </div>
 </section>
