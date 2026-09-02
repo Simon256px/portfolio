@@ -1,6 +1,6 @@
 ---
 title: "Tuto : cinq ans de plus pour le PC dont Windows 11 ne veut pas"
-date: 2026-08-31
+date: 2026-08-28
 category: TUTO
 excerpt: "Sur les opérations qui font vraiment le ressenti d'une machine, un disque dur plafonne à 1,7 Mo/s et un SSD monte à 250. Facteur cent soixante-dix. Le procédé pour rallonger la vie d'un PC tient en deux achats et une décision — et j'avais annoncé ce calcul sans jamais le faire."
 ---

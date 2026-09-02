@@ -1,6 +1,6 @@
 ---
 title: "Dans le présent est tout le temps : Orb et Krishnamurti"
-date: 2026-09-08
+date: 2026-09-02
 category: RÉFLEXION
 excerpt: "Le 20 avril 1985 à Washington, Krishnamurti donne une causerie intitulée « Dans le présent est tout le temps ». Quarante ans plus tard, un mangaka japonais en écrit la démonstration narrative sans le savoir : quatre-vingts ans, quatre générations, aucun personnage qui voit l'aboutissement de ce qu'il commence. Et le chiffre que Krishnamurti avance ce jour-là a empiré de moitié."
 ---

@@ -1,6 +1,6 @@
 ---
 title: "La Chine fondait au coke en 1078 : pourquoi ça n'a rien donné"
-date: 2026-08-29
+date: 2026-08-26
 category: SCIENCE
 excerpt: "À la fin du XIe siècle, les hauts fourneaux chinois abandonnent le charbon de bois pour le coke — le geste technique exact d'Abraham Darby, sept siècles avant lui. Ce qui manquait n'était donc pas l'invention. Et le rattrapage d'aujourd'hui passe précisément par là où la Chine était déjà forte en 1078."
 ---
