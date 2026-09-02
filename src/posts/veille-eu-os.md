@@ -1,6 +1,6 @@
 ---
 title: "Veille : EU OS, la distribution européenne bâtie sur Fedora"
-date: 2026-08-30
+date: 2026-08-27
 category: VEILLE
 excerpt: "Un projet de distribution Linux pour le secteur public européen, censé le libérer de sa dépendance américaine — et qui repose sur Fedora, sponsorisée par Red Hat, filiale d'IBM. L'ironie saute aux yeux. Elle est trompeuse, et comprendre pourquoi règle une bonne partie du débat sur la souveraineté."
 ---

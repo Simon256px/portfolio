@@ -1,6 +1,6 @@
 ---
 title: "La farine du boulanger : ton gain se compte, ton coût ne se compte pas"
-date: 2026-09-03
+date: 2026-08-28
 category: RÉFLEXION
 excerpt: "Un boulanger qui passe à une farine moins chère gagne environ 6 000 € par an. Le pain reste bon. Personne ne tombe malade, personne ne se plaint, aucune loi n'est enfreinte. Et pourtant quelque chose a été pris à quelques milliers de personnes. C'est le seul dilemme moral qui compte vraiment, parce que c'est le seul qu'on ne voit pas."
 ---

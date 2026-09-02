@@ -1,6 +1,6 @@
 ---
 title: "Ton mot de passe : 4 heures ou 12 000 ans, et tu n'y es pour rien"
-date: 2026-09-07
+date: 2026-09-01
 category: SÉCURITÉ
 excerpt: "Un mot de passe aléatoire de huit caractères tombe en 3 h 50 s'il est stocké en MD5, et tient 12 100 ans s'il est stocké en bcrypt. Même mot de passe, même carte graphique, facteur 27 millions. La variable qui décide n'est pas la tienne — et de toute façon, ce n'est pas comme ça qu'on perd ses comptes."
 ---

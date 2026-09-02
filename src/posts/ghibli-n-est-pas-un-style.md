@@ -1,6 +1,6 @@
 ---
 title: "Ghibli n'est pas un style, c'est une quantité de travail"
-date: 2026-09-05
+date: 2026-08-30
 category: RÉFLEXION
 excerpt: "Princesse Mononoké a demandé 144 000 cellulos, dont Miyazaki en a repris environ 80 000 lui-même. Soit, sur trois ans, plus de soixante-dix dessins par jour, tous les jours. Ce que la génération d'images a copié en mars 2025, c'est la seule couche de Ghibli qui ne contient pas ce travail — et ça change ce qu'on peut reprocher, et à qui."
 ---

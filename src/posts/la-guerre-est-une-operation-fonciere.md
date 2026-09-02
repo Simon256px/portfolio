@@ -1,6 +1,6 @@
 ---
 title: "La guerre est une opération foncière, tu en es le coût variable"
-date: 2026-08-25
+date: 2026-08-22
 category: RÉFLEXION
 excerpt: "Prendre une seule colline au Kivu, c'est contrôler 20 % de la production mondiale de coltan. Trois articles plus tard, je reprends tout dans le bon ordre : ce que les guerres achètent, comment on trouve les hommes pour les faire, et pourquoi refuser n'a de sens que si l'on accepte d'en payer le prix."
 ---

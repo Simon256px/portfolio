@@ -1,6 +1,6 @@
 ---
 title: "Open-weight ou open source : la différence qui t'engage"
-date: 2026-08-28
+date: 2026-08-25
 category: LOGICIEL LIBRE
 excerpt: "La section 3.2 des conditions de Gemma autorise Google à restreindre l'usage du modèle à distance. Sur quelque chose qu'on te présente comme ouvert. Depuis le 2 août 2025, confondre poids ouverts et open source n'est plus une question de vocabulaire : ça décide de tes obligations légales."
 ---

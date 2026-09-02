@@ -1,6 +1,6 @@
 ---
 title: "Argent public : personne ne le vole, personne ne le contrôle"
-date: 2026-08-22
+date: 2026-08-21
 category: RÉFLEXION
 excerpt: "211 milliards d'aides par an, 2 200 dispositifs, 1 153 organismes publics, et un ministre qui reconnaît ne pas savoir où sont ses agents. Le plus troublant n'est pas qu'on détourne : c'est qu'il n'y a nul besoin de détourner pour que l'argent s'évapore. Anatomie d'une chaîne où chaque maillon est régulier."
 ---

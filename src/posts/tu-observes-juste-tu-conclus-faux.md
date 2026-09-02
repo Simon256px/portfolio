@@ -1,6 +1,6 @@
 ---
 title: "League of Legends : tu observes juste, tu conclus faux"
-date: 2026-09-06
+date: 2026-08-31
 category: RÉFLEXION
 excerpt: "Le winrate collé à 50 %, les neuf défaites d'affilée, les coéquipiers qui semblent saboter, la loser's queue : cinq plaintes, cinq observations exactes. Aucune n'a la cause qu'on lui prête. Et l'explication qui les couvre toutes les cinq est bien plus dérangeante que le complot — parce qu'un classement parfaitement juste produit tous ces symptômes sans que personne n'ait eu à les vouloir."
 ---
