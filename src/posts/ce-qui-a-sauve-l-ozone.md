@@ -1,6 +1,6 @@
 ---
 title: "Ce qui a sauvé l'ozone n'était pas la science, c'était un chèque"
-date: 2026-09-11
+date: 2026-09-12
 category: RÉFLEXION
 excerpt: "Le rassemblement de scientifiques de chaque nation existe depuis 1988, et son résumé aux décideurs est relu ligne par ligne par les États qu'il vise. Le seul traité qui ait marché n'a rien gagné par la science : il avait une date, un fonds et une sanction. Et depuis juillet 2025, deux de ces trois objets viennent d'apparaître pour le climat."
 ---
