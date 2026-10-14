@@ -1,4 +1,4 @@
-// Commun à toutes les pages : fond animé, horloge Paris, retour en haut.
+// Commun à toutes les pages : fond animé, horloge (heure française), retour en haut.
 import { createFlowField } from "/js/flow-field.js";
 
 const bg = document.getElementById("bg-canvas");
