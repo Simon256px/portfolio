@@ -1,6 +1,6 @@
 ---
 title: "France 2036 : toute notre énergie en 33 prévisions et 5 scénarios"
-date: 2026-11-18
+date: 2026-11-19
 category: "RÉFLEXION"
 excerpt: "Une prospective complète de l'énergie en France d'ici 2036 : vingt-quatre modèles, trente-trois prévisions chiffrées avec leurs probabilités, cinq scénarios, un calendrier, une grille géopolitique, l'argent, les gens, et un tableau de bord à relire chaque novembre. Le nucléaire produira environ 375 TWh, le premier EPR2 ne tournera pas avant 2041, les transports ne sont électrifiés qu'à 3 %, et les fossiles pèseront encore près de la moitié de notre énergie. La France produira propre, consommera fossile, et paiera chaque année à l'étranger de quoi financer plusieurs fois sa transition."
 ---
